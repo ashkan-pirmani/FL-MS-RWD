@@ -1,0 +1,41 @@
+# conf/sweep.yaml
+program: ./Main.py
+name: nature-fl-ms
+method: grid
+metric:
+  goal: maximize
+  name: server_roc_auc
+
+parameters:
+  model.model_type:  # Use dot notation to match the nested structure
+    values: ["pointwise"]
+  federation.federation_rounds:
+    values: [40]
+  federation.num_clients:
+    values: [32]
+  training.batch_size:
+    values: [64,128,256,512]
+  model.hidden:
+    values: [512]
+  model.dropout:
+    values: [0.1]
+  model.num_layers:
+    values: [5]
+  model.hidden_ext:
+    values: [32]
+  training.lr:
+    values: [0.0001]
+  training.epochs:
+    values: [5,10,20]
+  training.patience:
+    values: [2,5]
+  training.proximal:
+    values: [0.5,0.1,0.001, 0.01]
+  training.patience_server:
+    values: [1000]
+
+command:
+  - ${env}
+  - python
+  - ${program}
+  - ${args_no_hyphens}

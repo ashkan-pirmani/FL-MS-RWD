@@ -58,6 +58,68 @@ FL-MS-RWD/
 
 ---
 
+## Environment Setup
+
+To reproduce the environment for this project, please follow these steps:
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone <repository-url>
+   cd FL-MS-RWD
+   ```
+
+2. **Set Up the Conda Environment:**
+
+   Ensure you have [Miniconda](https://docs.conda.io/en/latest/miniconda.html) or [Anaconda](https://www.anaconda.com/products/individual) installed.
+
+   Create the environment using the provided `environment.yml` file:
+
+   ```bash
+   conda env create -f environment.yml
+   ```
+
+3. **Activate the Environment:**
+
+   ```bash
+   conda activate fl
+   ```
+
+4. **Verify the Environment:**
+
+   To check that all required packages are installed, run:
+
+   ```bash
+   conda list
+   ```
+
+5. **Run the Application:**
+
+   Launch the application using:
+
+   ```bash
+   python main.py
+   ```
+
+   (Replace `main.py` with the appropriate entry point if necessary.)
+
+### Alternative: Using Docker
+
+If you prefer using Docker, follow these steps:
+
+- **Build the Docker Image:**
+
+  ```bash
+  docker build -t fl-ms-rwd .
+  ```
+
+- **Run the Docker Container:**
+
+  ```bash
+  docker run --rm -it fl-ms-rwd
+  ```
+---
+
 ## 🏆 Citation
 
 If you use this repository in your research, please cite:

@@ -36,6 +36,54 @@ FL-MS-RWD/
 │── README.md                    # This document
 ```
 
+## ⚙️ Hyperparameter Configurations
+
+The **best performing hyperparameter configurations** used in this study are stored in the [`Experiments/BestModels`](https://github.com/ashkan-pirmani/FL-MS-RWD/tree/paper/Experiments/BestModels) directory.  
+- These files contain the exact configurations that led to the reported results.
+- You can directly reuse them as **base configurations** to replicate or extend experiments.
+
+### Hyperparameters Overview
+
+- **training**
+  - `batch_size`: Number of samples per client update step.
+  - `lr`: Learning rate for the optimizer.
+  - `epochs`: Number of local epochs per federated round.
+  - `weight_decay`: L2 regularization applied to model weights.
+  - `patience`: Early stopping patience for local training.
+  - `patience_server`: Early stopping patience for global server aggregation.
+
+- **model**
+  - `hidden`: Hidden dimension size of the neural network layers.
+  - `dropout`: Dropout rate for regularization.
+  - `num_layers`: Number of layers in the model.
+  - `hidden_ext`: Size of extra hidden dimensions (only for AdaptiveDualBranchNet).
+  - `model_type`: Can be set to `"AdaptiveDualBranchNet"` (default architecture used) or a pointwise baseline.
+
+- **federation**
+  - `federation_rounds`: Total number of federated communication rounds.
+  - `num_clients`: Number of participating clients in the FL simulation.
+
+- **main**
+  - `cpu` / `gpu`: Resource allocation for training.
+
+- **other**
+  - `repetition`: Number of repetitions for statistical robustness.
+
+### Strategy-Specific Hyperparameters
+
+Certain federated algorithms require additional hyperparameters:
+- **FedProx**: uses `mu` to control the proximal term strength.
+- **FedAdam**, **FedYogi**, **FedAdagrad**: include optimizer-specific parameters handled internally.
+
+### `model_type: "AdaptiveDualBranchNet"`
+
+- `AdaptiveDualBranchNet` is the primary model architecture for personalized federated learning in this project.
+- It separates globally shared and adaptive client-specific parameters, allowing selective parameter exchange during aggregation.
+- Model logic is implemented in `utils.py`, while parameter exchange mechanisms (`set_parameters` and `get_parameters`) are handled inside `clients.py`. This allows flexible control over which parameters are globally synchronized.
+- Alternatively, `model_type` can be set to a simple pointwise baseline model for non-personalized training.
+
+
+
 ## 📊 Results Summary
 
 | Model      | Personalization | ROC–AUC |
